@@ -7,11 +7,12 @@
     }
   },
   "routes": [
-    { "src": "/build/(.*)", "dest": "/public/build/" },
+    { "src": "/build/(.*)", "dest": "/public/build/$1" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ],
   "buildCommand": "vite build",
   "outputDirectory": "public",
+  "runtime": "nodejs20.x",
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "false",
@@ -31,7 +32,5 @@
     "DB_PORT": "3306",
     "DB_DATABASE": "db2024_stormtorn",
     "DB_USERNAME": "db2024_stormtorn"
-  },
-  "functionsDirectory": "api",
-  "runtime": "nodejs20.x"
+  }
 }
