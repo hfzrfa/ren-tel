@@ -1,27 +1,11 @@
 @extends('layouts.app')
 
 @section('title', 'Sign in • Rent-Tel')
-
-
+@section('hide_footer', true)
 
 @section('content')
-
-
-    <!DOCTYPE html>
-    <html lang="id">
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sign in</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-
-    <body class="min-h-screen bg-[#0B1220] text-slate-200 antialiased">
-
-        <div
-            class="absolute inset-0 -z-10 bg-linear-to-b from-indigo-50 via-white to-white dark:from-indigo-950/40 dark:via-gray-950 dark:to-gray-950">
-        </div>
+    <div
+        class="relative min-h-screen">
         <div class="flex min-h-screen items-center justify-center px-4">
             <div class="w-full max-w-md">
                 <!-- Logo -->
@@ -83,16 +67,16 @@
                             Sign in
                         </button>
 
-                        <div class="relative my-5">
+                        {{-- <div class="relative my-5">
                             <div class="absolute inset-0 flex items-center" aria-hidden="true">
                                 <div class="w-full border-t border-slate-800"></div>
                             </div>
                             <div class="relative flex justify-center">
                                 <span class="bg-slate-900/60 px-3 text-sm text-slate-400">Or continue with</span>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="grid grid-cols-2 gap-3">
+                        {{-- <div class="grid grid-cols-2 gap-3">
                             <a href="{{ Route::has('oauth.redirect') ? route('oauth.redirect', ['provider' => 'google']) : '#' }}"
                                 class="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-800 bg-slate-900/70 px-4 py-3 text-sm text-slate-200 hover:bg-slate-900">
                                 <!-- Google icon -->
@@ -119,7 +103,7 @@
                                 </svg>
                                 GitHub
                             </a>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
 
@@ -129,8 +113,5 @@
                 </p>
             </div>
         </div>
-    </body>
-
-    </html>
-
+    </div>
 @endsection

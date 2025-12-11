@@ -32,13 +32,37 @@ class BookingController extends Controller
             'return_time' => ['required'],
             'pickup_method' => ['required','in:self_pickup,delivery'],
             'delivery_address' => ['nullable','string','required_if:pickup_method,delivery','max:500'],
-            'gps_location' => ['nullable','string','max:255'],
+            'gps_location' => ['nullable','string','max:255','required_if:pickup_method,delivery'],
             'full_name' => ['required','string','max:255'],
             'email' => ['required','email'],
             'phone' => ['nullable','string','max:50'],
         ]);
 
         $user = Auth::user();
+
+        if ($user) {
+            $today = Carbon::today();
+
+            $hasActiveReservation = Reservation::query()
+                ->where('user_id', $user->id)
+                ->where(function ($query) use ($today) {
+                    $query
+                        ->whereIn('status', ['pending', 'confirmed'])
+                        ->orWhere(function ($q) use ($today) {
+                            $q->where('status', 'completed')
+                              ->whereDate('return_date', '>=', $today);
+                        });
+                })
+                ->exists();
+
+            if ($hasActiveReservation) {
+                return back()
+                    ->withErrors([
+                        'booking' => 'You already have an active booking. You can create a new booking after the current booking is approved and the rental period has ended.',
+                    ])
+                    ->withInput();
+            }
+        }
 
         // Compute total price: price_per_day × days
         $car = Car::findOrFail($validated['car_id']);
@@ -47,6 +71,10 @@ class BookingController extends Controller
         $days = max(1, $start->diffInDays($end));
         $total = ((float) ($car->price_per_day ?? 0)) * $days;
 
+        $pickupLocation = $validated['pickup_method'] === 'delivery'
+            ? ($validated['gps_location'] ?? 'Delivery location not set')
+            : 'Rental office';
+
         $reservation = Reservation::create([
             'car_id' => $validated['car_id'],
             'user_id' => Auth::id(),
@@ -54,7 +82,7 @@ class BookingController extends Controller
             'full_name' => $user?->name ?? $validated['full_name'],
             'email' => $user?->email ?? $validated['email'],
             'phone' => $validated['phone'] ?? null,
-            'pickup_location' => $validated['gps_location'] ?? null,
+            'pickup_location' => $pickupLocation,
             'pickup_date' => $validated['pickup_date'],
             'pickup_time' => $validated['pickup_time'],
             'pickup_method' => $validated['pickup_method'],

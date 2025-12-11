@@ -21,13 +21,29 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Hide scrollbars globally but keep scrolling enabled */
+        html,
+        body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            display: none;
+        }
     </style>
     @stack('head')
     @yield('head')
 </head>
 
 <body class="min-h-full bg-gray-50 text-gray-800 antialiased dark:bg-gray-950 dark:text-gray-100">
-    @include('partials.nav')
+    @if (! View::hasSection('hide_nav'))
+        @include('partials.nav')
+    @endif
 
     <main>
         @yield('content')

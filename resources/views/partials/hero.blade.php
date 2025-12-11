@@ -1,8 +1,5 @@
 <!-- Hero -->
 <section class="relative overflow-hidden scrollbar-hidden">
-    <div
-        class="absolute inset-0 -z-10 bg-linear-to-b from-indigo-50 via-white to-white dark:from-indigo-950/40 dark:via-gray-950 dark:to-gray-950">
-    </div>
     <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:py-20">
         <div>
             <span
@@ -41,6 +38,33 @@
             </dl>
         </div>
 
+<div class="relative hidden lg:block">
+    <!-- Glow background -->
+    <div class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
+
+    <!-- Wrapper card -->
+    <div class="relative mx-auto max-w-md rounded-3xl border border-slate-800/60 bg-slate-900/80 p-4 shadow-2xl shadow-indigo-900/40">
+
+        <!-- IMAGE FIX -->
+        <div class="overflow-hidden rounded-2xl bg-slate-900">
+            <img
+                src="{{ asset('images/hero-car.png') }}"
+                alt="Premium rental car"
+                class="w-full h-64 object-cover object-center block"
+                loading="lazy"
+            >
+        </div>
+
+        <!-- Bottom label -->
+        <div class="mt-4 flex items-center justify-between text-xs text-slate-300">
+            <span>Featured vehicle</span>
+            <span class="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                Instant confirmation
+            </span>
+        </div>
+
+    </div>
+</div>
 
 
     </div>

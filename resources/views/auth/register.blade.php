@@ -35,7 +35,7 @@
                             <label for="name" class="text-sm text-slate-300">Full name</label>
                             <input id="name" name="name" type="text" autocomplete="name" required
                                 class="w-full rounded-lg border-0 bg-slate-900/80 px-4 py-3 text-slate-100 ring-1 focus:outline-none focus:ring-2 {{ $errors->has('name') ? 'ring-red-500 focus:ring-red-500' : 'ring-slate-800 focus:ring-indigo-500' }}"
-                                placeholder="Nama lengkap" value="{{ old('name') }}">
+                                placeholder="Your Name" value="{{ old('name') }}">
                             @error('name')
                                 <p class="text-xs text-red-400">{{ $message }}</p>
                             @enderror
@@ -47,6 +47,16 @@
                                 class="w-full rounded-lg border-0 bg-slate-900/80 px-4 py-3 text-slate-100 ring-1 focus:outline-none focus:ring-2 {{ $errors->has('email') ? 'ring-red-500 focus:ring-red-500' : 'ring-slate-800 focus:ring-indigo-500' }}"
                                 placeholder="you@example.com" value="{{ old('email') }}">
                             @error('email')
+                                <p class="text-xs text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="phone" class="text-sm text-slate-300">Phone number</label>
+                            <input id="phone" name="phone" type="text" autocomplete="tel" required
+                                class="w-full rounded-lg border-0 bg-slate-900/80 px-4 py-3 text-slate-100 ring-1 focus:outline-none focus:ring-2 {{ $errors->has('phone') ? 'ring-red-500 focus:ring-red-500' : 'ring-slate-800 focus:ring-indigo-500' }}"
+                                placeholder="Your Phone Number" value="{{ old('phone') }}">
+                            @error('phone')
                                 <p class="text-xs text-red-400">{{ $message }}</p>
                             @enderror
                         </div>

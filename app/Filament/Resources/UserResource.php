@@ -41,6 +41,10 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
+                Forms\Components\TextInput::make('phone')
+                    ->label('Phone number')
+                    ->tel()
+                    ->maxLength(50),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->confirmed()
@@ -65,6 +69,9 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('email')->searchable()->sortable(),
+                TextColumn::make('phone')
+                    ->label('Phone')
+                    ->searchable(),
                 TextColumn::make('created_at')->dateTime()->label('Joined'),
             ])
             ->filters([])

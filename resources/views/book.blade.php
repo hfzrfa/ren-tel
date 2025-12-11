@@ -22,6 +22,12 @@
                     <p class="mt-1 text-sm text-slate-400">Fill in the details below to reserve your vehicle</p>
                 </div>
 
+                @if ($errors->has('booking'))
+                    <div class="mb-4 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                        {{ $errors->first('booking') }}
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('booking.store') }}" class="space-y-4">
                     @csrf
 
@@ -169,17 +175,10 @@
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-slate-200">Phone</label>
-                            <input type="tel" name="phone" value="{{ old('phone') }}"
+                            <input type="tel" name="phone" value="{{ old('phone', auth()->user()->phone) }}" readonly
                                 class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
                                 placeholder="08xxxxxxxxxx">
                         </div>
-                        {{-- <div id="pickup-location-field" class="space-y-2 hidden">
-                            <label class="text-sm font-medium text-slate-200">Pickup location <span
-                                    class="text-red-500">*</span></label>
-                            <input type="text" id="pickup_location" name="pickup_location" value="{{ old('pickup_location') }}"
-                                class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
-                                placeholder="Alamat jemput">
-                        </div> --}}
                     </div>
 
                     <!-- Submit -->

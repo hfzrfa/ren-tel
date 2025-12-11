@@ -64,7 +64,7 @@
                             <thead>
                                 <tr class="bg-black/40 text-xs uppercase tracking-wide text-gray-400">
                                     <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Car</th>
-                                    <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Pickup location</th>
+                                    {{-- <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Pickup location</th> --}}
                                     <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Pickup date</th>
                                     <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Return date</th>
                                     <th class="whitespace-nowrap px-4 py-3 text-right font-medium">Total</th>
@@ -108,9 +108,9 @@
                                         </td>
 
                                         {{-- pickup location --}}
-                                        <td class="whitespace-nowrap px-4 py-3 align-middle text-gray-200">
+                                        {{-- <td class="whitespace-nowrap px-4 py-3 align-middle text-gray-200">
                                             {{ $reservation->pickup_location ?? '—' }}
-                                        </td>
+                                        </td> --}}
 
                                         {{-- pickup date --}}
                                         <td class="whitespace-nowrap px-4 py-3 align-middle text-gray-200">
