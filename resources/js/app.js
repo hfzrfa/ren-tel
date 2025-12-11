@@ -1,4 +1,7 @@
 import "./bootstrap";
+import "./dock-app.jsx";
+import "./benefits-app.jsx";
+import "./date-pickers-app.jsx";
 
 // Dynamic cars fetching for search + periodic refresh (simple real-time)
 document.addEventListener("DOMContentLoaded", () => {
@@ -40,7 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }</p>
 						</div>
                         <div class="text-right">
-                            <div class="text-lg font-bold">${formatIDR(price)}<span class="text-sm font-medium text-gray-500">/day</span></div>
+                            <div class="text-lg font-bold">${formatIDR(
+                                price
+                            )}<span class="text-sm font-medium text-gray-500">/day</span></div>
                         </div>
 					</div>
 					<div class="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">

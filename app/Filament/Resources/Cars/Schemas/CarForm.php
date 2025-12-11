@@ -22,12 +22,13 @@ class CarForm
                 //     ->nullable(),
                 Select::make('type')
                     ->options([
-                        'sedan' => 'Sedan',
-                        'suv' => 'Suv',
                         'luxury' => 'Luxury',
+                        'suv' => 'Suv',
+                        'sedan' => 'Sedan',
+                        'mpv' => 'Mpv',
                         'ev' => 'Ev',
                         'van' => 'Van',
-                        'pickup' => 'Pickup',
+
                     ])
                     ->required(),
                 Select::make('transmission')
@@ -42,8 +43,8 @@ class CarForm
                 TextInput::make('location')
                     ->required(),
                 Toggle::make('is_available'),
-                TextInput::make('image_url')
-                    ->url(),
+                // TextInput::make('image_url')
+                //     ->url(),
                 FileUpload::make('image_path')
                     ->disk('public')
                     ->directory('cars')

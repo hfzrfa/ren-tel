@@ -23,4 +23,20 @@ class CarController extends Controller
             'filters' => $filters,
         ]);
     }
+
+    public function all(Request $request)
+    {
+        $filters = $request->only(['pickup','pickup_date','pickup_time','return_date','return_time','type','seats','max_price']);
+
+        $cars = Car::query()
+            ->search($filters)
+            ->orderBy('price_per_day')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('cars.index', [
+            'cars' => $cars,
+            'filters' => $filters,
+        ]);
+    }
 }

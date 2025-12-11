@@ -1,6 +1,6 @@
 <!-- Top Nav -->
 <header
-    class="sticky top-0 z-40 border-b border-gray-200/70 bg-white/90 backdrop-blur-md dark:border-gray-800/70 dark:bg-gray-950/80">
+    class="hidden md:block sticky top-0 z-40 border-b border-gray-200/70 bg-white/90 backdrop-blur-md dark:border-gray-800/70 dark:bg-gray-950/80">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <a href="/" class="inline-flex items-center gap-2">
@@ -10,18 +10,28 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-8">
-                <a href="/book"
-                    class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">Booking</a>
-
-                <a href="#cars"
-                    class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">Cars</a>
-                <a href="#benefits"
+                {{-- <a href="/book"
+                    class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">
+                    Booking</a> --}}
+                {{-- <a href="#cars"
+                    class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">Cars</a> --}}
+                    <a href="{{ url('/#benefits') }}"
                     class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">Benefits</a>
-                <a href="#how"
+                    <a href="{{ url('/#how') }}"
                     class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">How
                     it works</a>
-                <a href="#testimonials"
+                    <a href="{{ url('/#testimonials') }}"
                     class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">Reviews</a>
+                    <a href="{{ route('cars.index') }}"
+                        class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">View
+                        cars</a>
+                @auth
+                    @if (Route::has('booking.mine'))
+                        <a href="{{ route('booking.mine') }}"
+                            class="text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400">My
+                            bookings</a>
+                    @endif
+                @endauth
             </nav>
 
             <div class="hidden md:flex items-center gap-3">
@@ -60,14 +70,24 @@
         class="md:hidden hidden border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
         <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6">
             <nav class="grid gap-2">
-                <a href="#cars"
+                <a href="{{ url('/#cars') }}"
                     class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900">Cars</a>
-                <a href="#benefits"
+                <a href="{{ route('cars.index') }}"
+                    class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900">All
+                    cars</a>
+                @auth
+                    @if (Route::has('booking.mine'))
+                        <a href="{{ route('booking.mine') }}"
+                            class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900">My
+                            bookings</a>
+                    @endif
+                @endauth
+                <a href="{{ url('/#benefits') }}"
                     class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900">Benefits</a>
-                <a href="#how"
+                <a href="{{ url('/#how') }}"
                     class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900">How it
                     works</a>
-                <a href="#testimonials"
+                <a href="{{ url('/#testimonials') }}"
                     class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900">Reviews</a>
                 <div class="mt-2 flex gap-2">
                     @guest

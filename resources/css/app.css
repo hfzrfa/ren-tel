@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 
 /* Tailwind v4: explicitly include Blade & PHP sources so utilities are generated in production */
 @source '../../resources/views/**/*.blade.php';

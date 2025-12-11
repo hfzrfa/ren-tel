@@ -61,6 +61,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('1s')
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('email')->searchable()->sortable(),

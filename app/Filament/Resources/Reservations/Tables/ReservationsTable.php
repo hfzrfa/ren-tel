@@ -7,12 +7,15 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Models\Reservation;
 
 class ReservationsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            // Auto-refresh the table every 5 seconds (no manual reload needed)
+            ->poll('1s')
             ->columns([
                 TextColumn::make('car.name')
                     ->label('Car')
@@ -49,8 +52,13 @@ class ReservationsTable
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('total_price')
+                    ->label('Total price')
                     ->money('IDR', locale: 'id_ID')
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(function ($state, Reservation $record) {
+                        // Fallback to computed value when total_price is null
+                        return $state ?? $record->getComputedTotalPriceAttribute();
+                    }),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

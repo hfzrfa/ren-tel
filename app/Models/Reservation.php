@@ -4,7 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property-read int $days Number of rental days
+ * @property-read float $computed_total_price Calculated total price (price_per_day × days)
+ */
 class Reservation extends Model
 {
     use HasFactory;
@@ -26,5 +31,30 @@ class Reservation extends Model
     public function car()
     {
         return $this->belongsTo(Car::class);
+    }
+
+    /**
+     * Number of rental days (minimum 1 day).
+     */
+    public function getDaysAttribute(): int
+    {
+        try {
+            $start = $this->pickup_date instanceof Carbon ? $this->pickup_date : Carbon::parse($this->pickup_date);
+            $end = $this->return_date instanceof Carbon ? $this->return_date : Carbon::parse($this->return_date);
+        } catch (\Throwable $e) {
+            return 1;
+        }
+
+        $days = $start && $end ? $start->diffInDays($end) : 0;
+        return max(1, (int) $days);
+    }
+
+    /**
+     * Computed total price based on car price_per_day × days.
+     */
+    public function getComputedTotalPriceAttribute(): float
+    {
+        $pricePerDay = (float) ($this->car->price_per_day ?? 0);
+        return (float) ($pricePerDay * $this->days);
     }
 }

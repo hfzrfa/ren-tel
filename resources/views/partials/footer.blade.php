@@ -4,8 +4,8 @@
         <div class="grid gap-8 md:grid-cols-4">
             <div>
                 <a href="#" class="inline-flex items-center gap-2">
-                    <span
-                        class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white">RT</span>
+                    {{-- <span
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white">RT</span> --}}
                     <span class="text-base font-semibold">Rent-Tel</span>
                 </a>
                 <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">Premium car rentals with transparent

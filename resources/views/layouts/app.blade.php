@@ -33,10 +33,14 @@
         @yield('content')
     </main>
 
-    @include('partials.footer')
+    @if (! View::hasSection('hide_footer'))
+        @include('partials.footer')
+    @endif
 
     @stack('scripts')
     @yield('scripts')
+    <!-- Global React Dock mount point (mobile only) -->
+    <div id="react-dock"></div>
 </body>
 
 </html>

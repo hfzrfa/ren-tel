@@ -2,7 +2,11 @@
 
 @section('title', 'Sign in • Rent-Tel')
 
+
+
 @section('content')
+
+
     <!DOCTYPE html>
     <html lang="id">
 
@@ -14,6 +18,10 @@
     </head>
 
     <body class="min-h-screen bg-[#0B1220] text-slate-200 antialiased">
+
+        <div
+            class="absolute inset-0 -z-10 bg-linear-to-b from-indigo-50 via-white to-white dark:from-indigo-950/40 dark:via-gray-950 dark:to-gray-950">
+        </div>
         <div class="flex min-h-screen items-center justify-center px-4">
             <div class="w-full max-w-md">
                 <!-- Logo -->

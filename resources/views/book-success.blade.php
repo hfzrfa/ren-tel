@@ -1,44 +1,51 @@
 @extends('layouts.app')
 
+@section('title', 'Booking success')
+@section('hide_footer', true)
+
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Payment successful</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-[#0B1220] text-slate-200 antialiased">
-  <div class="min-h-screen flex items-center justify-center p-6">
-    <div class="w-full max-w-xl">
-      <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-8 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)]">
-        <!-- Check badge -->
-        <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600/15">
-          <svg viewBox="0 0 24 24" class="h-6 w-6 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+    <div class="fixed inset-0 overflow-hidden">
+        {{-- Ambient background accents --}}
+        <div class="pointer-events-none absolute inset-0 overflow-hidden">
+            <div class="absolute left-[-12%] top-[-16%] h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl"></div>
+            <div class="absolute right-[-10%] bottom-[-18%] h-72 w-72 rounded-full bg-indigo-500/15 blur-3xl"></div>
         </div>
 
-        <!-- Title -->
-        <h1 class="text-center text-xl font-semibold">Payment successful</h1>
+        <div class=" relative flex min-h-screen items-center justify-center ">
+            {{-- Wrapper to center the card --}}
+            <div class="rounded-2xl border border-slate-800/60 bg-slate-900/60 p-6 shadow-xl backdrop-blur max-w-md w-full">
+                {{-- Success card --}}
+                <div class="rounded-xl border-slate-800/80 bg-slate-900/80 shadow-2xl backdrop-blur-sm p-8">
+                    {{-- Success icon --}}
+                    <div class="flex justify-center">
+                        <div class="rounded-full bg-emerald-500/15 p-3 ring-1 ring-emerald-400/30">
+                            <svg viewBox="0 0 24 24" class="h-10 w-10 text-emerald-400" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
 
-        <!-- Copy -->
-        <p class="mt-3 text-center text-slate-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.
-        </p>
+                    {{-- Title and short message --}}
+                    <div class="mt-6 text-center space-y-3">
+                        <h1 class="text-xl font-semibold text-white">Booking Successful!</h1>
+                        <p class="text-sm text-slate-400">Your car rental is confirmed. We'll reach out with the next steps
+                            shortly.</p>
+                    </div>
 
-        <!-- Action -->
-        <div class="mt-6">
-          <a href="{{ url('/') }}"
-             class="block w-full rounded-lg bg-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            Go back to dashboard
-          </a>
+                    {{-- Action buttons --}}
+                    <div class="mt-6 space-y-5">
+                        <a href="{{ route('booking.mine') }}"
+                            class="block w-full rounded-2xl bg-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            View my bookings
+                        </a>
+                        <a href="{{ route('booking.create') }}"
+                            class="block w-full rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-center text-sm font-semibold text-slate-100 transition hover:border-indigo-400 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+                            Make another booking
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</body>
-</html>
-
 @endsection

@@ -11,7 +11,8 @@
             <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Your ride,
                 on your terms.</h1>
             @auth
-                <p class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-200">Welcome back, {{ auth()->user()->name }}.</p>
+                <p class="mt-2 text-sm font-medium text-gray-700 dark:text-gray-200">Welcome back,
+                    {{ auth()->user()->name }}.</p>
             @endauth
             <p class="mt-4 max-w-xl text-base leading-7 text-gray-600 dark:text-gray-300">Rent-Tel makes car rental
                 effortless—transparent pricing, top-tier vehicles, and flexible pickup options in minutes. Drive the

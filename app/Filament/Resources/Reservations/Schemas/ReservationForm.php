@@ -29,7 +29,7 @@ class ReservationForm
                     ->email()
                     ->required(),
                 TextInput::make('phone')
-                    ->tel(),
+                    ->required(),
                 TextInput::make('pickup_location')
                     ->required(),
                 DatePicker::make('pickup_date')
@@ -62,7 +62,6 @@ class ReservationForm
                     ->required(),
                 TextInput::make('total_price')
                     ->numeric(),
-                KeyValue::make('extras')->nullable(),
             ]);
     }
 }

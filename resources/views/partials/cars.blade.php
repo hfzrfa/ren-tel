@@ -5,8 +5,8 @@
       <h2 class="text-2xl font-bold tracking-tight">Popular choices</h2>
       <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Handpicked vehicles ready for your next trip.</p>
     </div>
-    <a href="#"
-       class="hidden md:inline inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
+   <a href="{{ route('cars.index') }}"
+     class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
       See all cars
       <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
     </a>
@@ -30,7 +30,7 @@
           />
 
           <!-- soft top gradient -->
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/0 to-transparent"></div>
+          <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/25 via-black/0 to-transparent"></div>
 
           <!-- type badge -->
           <span class="absolute left-3 top-3 inline-flex items-center rounded-full bg-white/90 px-2 py-1 text-[10px] font-medium text-gray-900 ring-1 ring-black/5 backdrop-blur dark:bg-gray-900/80 dark:text-gray-100">
@@ -85,7 +85,7 @@
           <div class="mt-4 flex items-center justify-between">
             <span class="text-[11px] text-gray-500">{{ $car->location }}</span>
 
-            <a href="/book"
+            <a href="{{ route('booking.create') }}"
                class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-3 py-2 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-700">
               Reserve
             </a>
@@ -102,7 +102,7 @@
   </div>
 
   <div class="mt-6 text-center md:hidden">
-    <a href="#" class="inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
+    <a href="{{ route('cars.index') }}" class="inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
       See all cars
       <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
     </a>

@@ -33,7 +33,7 @@ class CarsTable
                     ->searchable(),
                 IconColumn::make('is_available')
                     ->boolean(),
-                ImageColumn::make('image_url')->square(),
+                // ImageColumn::make('image_url')->square(),
                 ImageColumn::make('image_path')->disk('public')->square(),
                 TextColumn::make('created_at')
                     ->dateTime()

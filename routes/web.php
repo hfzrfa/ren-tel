@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookingController;
 
 Route::get('/', [CarController::class, 'index'])->name('landing');
+Route::get('/cars', [CarController::class, 'all'])->name('cars.index');
 
 // Admin panel will be provided via Filament (to be installed); native CRUD removed.
 
@@ -22,4 +23,5 @@ Route::middleware('auth')->group(function () {
 	Route::get('/book', [BookingController::class, 'create'])->name('booking.create');
 	Route::post('/book', [BookingController::class, 'store'])->name('booking.store');
 	Route::get('/book/success', [BookingController::class, 'success'])->name('booking.success');
+	Route::get('/my-bookings', [BookingController::class, 'mine'])->name('booking.mine');
 });

@@ -6,12 +6,16 @@ use App\Models\Car;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class BookingController extends Controller
 {
     public function create()
     {
-        $cars = Car::query()->orderBy('name')->get(['id','name']);
+        // Include price_per_day so the booking view can display pricing
+        $cars = Car::query()
+            ->orderBy('name')
+            ->get(['id', 'name', 'price_per_day']);
 
         return view('book', [
             'cars' => $cars,
@@ -23,18 +27,25 @@ class BookingController extends Controller
         $validated = $request->validate([
             'car_id' => ['required','exists:cars,id'],
             'pickup_date' => ['required','date','after_or_equal:today'],
-            'pickup_time' => ['required','date_format:H:i'],
+            'pickup_time' => ['required'],
             'return_date' => ['required','date','after_or_equal:pickup_date'],
-            'return_time' => ['required','date_format:H:i'],
+            'return_time' => ['required'],
             'pickup_method' => ['required','in:self_pickup,delivery'],
-            'delivery_address' => ['nullable','string','required_if:pickup_method,delivery','max:255'],
+            'delivery_address' => ['nullable','string','required_if:pickup_method,delivery','max:500'],
+            'gps_location' => ['nullable','string','max:255'],
             'full_name' => ['required','string','max:255'],
             'email' => ['required','email'],
             'phone' => ['nullable','string','max:50'],
-            'pickup_location' => ['required','string','max:255'],
         ]);
 
         $user = Auth::user();
+
+        // Compute total price: price_per_day × days
+        $car = Car::findOrFail($validated['car_id']);
+        $start = Carbon::parse($validated['pickup_date']);
+        $end = Carbon::parse($validated['return_date']);
+        $days = max(1, $start->diffInDays($end));
+        $total = ((float) ($car->price_per_day ?? 0)) * $days;
 
         $reservation = Reservation::create([
             'car_id' => $validated['car_id'],
@@ -43,7 +54,7 @@ class BookingController extends Controller
             'full_name' => $user?->name ?? $validated['full_name'],
             'email' => $user?->email ?? $validated['email'],
             'phone' => $validated['phone'] ?? null,
-            'pickup_location' => $validated['pickup_location'],
+            'pickup_location' => $validated['gps_location'] ?? null,
             'pickup_date' => $validated['pickup_date'],
             'pickup_time' => $validated['pickup_time'],
             'pickup_method' => $validated['pickup_method'],
@@ -51,6 +62,7 @@ class BookingController extends Controller
             'return_date' => $validated['return_date'],
             'return_time' => $validated['return_time'],
             'status' => 'pending',
+            'total_price' => $total,
         ]);
 
         return redirect()->route('booking.success')->with('reservation_id', $reservation->id);
@@ -60,5 +72,17 @@ class BookingController extends Controller
     {
         $id = session('reservation_id');
         return view('book-success', ['reservationId' => $id]);
+    }
+
+    public function mine()
+    {
+        $reservations = Reservation::with('car')
+            ->where('user_id', Auth::id())
+            ->latest('pickup_date')
+            ->paginate(10);
+
+        return view('booking-mine', [
+            'reservations' => $reservations,
+        ]);
     }
 }
