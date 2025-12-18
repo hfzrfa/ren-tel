@@ -2,6 +2,7 @@ import "./bootstrap";
 import "./dock-app.jsx";
 import "./benefits-app.jsx";
 import "./date-pickers-app.jsx";
+import "./theme.js";
 
 // Dynamic cars fetching for search + periodic refresh (simple real-time)
 document.addEventListener("DOMContentLoaded", () => {

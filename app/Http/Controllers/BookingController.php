@@ -65,11 +65,28 @@ class BookingController extends Controller
         }
 
         // Compute total price: price_per_day × days
+        // Weekend days (Saturday/Sunday) are charged +20%
         $car = Car::findOrFail($validated['car_id']);
         $start = Carbon::parse($validated['pickup_date']);
         $end = Carbon::parse($validated['return_date']);
         $days = max(1, $start->diffInDays($end));
-        $total = ((float) ($car->price_per_day ?? 0)) * $days;
+
+        $pricePerDay = (float) ($car->price_per_day ?? 0);
+        $weekendDays = 0;
+
+        // Count how many rental days fall on weekend
+        $current = $start->copy();
+        for ($i = 0; $i < $days; $i++) {
+            if ($current->isWeekend()) {
+                $weekendDays++;
+            }
+            $current->addDay();
+        }
+
+        $weekdayDays = $days - $weekendDays;
+        $weekdayTotal = $weekdayDays * $pricePerDay;
+        $weekendTotal = $weekendDays * $pricePerDay * 1.2; // +20% on weekend
+        $total = $weekdayTotal + $weekendTotal;
 
         $pickupLocation = $validated['pickup_method'] === 'delivery'
             ? ($validated['gps_location'] ?? 'Delivery location not set')

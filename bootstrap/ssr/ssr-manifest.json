@@ -12,5 +12,6 @@
   "resources/js/components/ui/ui/popover.tsx": [],
   "resources/js/date-pickers-app.jsx": [],
   "resources/js/dock-app.jsx": [],
-  "resources/js/lib/utils.ts": []
+  "resources/js/lib/utils.ts": [],
+  "resources/js/theme.js": []
 }

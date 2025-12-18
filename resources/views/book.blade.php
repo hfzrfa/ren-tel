@@ -1,29 +1,23 @@
 @extends('layouts.app')
 
 @section('hide_footer', true)
+@section('hide_nav', false)
 
 @section('content')
-    <!DOCTYPE html>
-    <html lang="id">
-
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Booking</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-
-    <body class="min-h-screen bg-[#0B1220] text-slate-200 antialiased ">
+    <div class="min-h-screen bg-gray-50 text-gray-900 antialiased dark:bg-[#0B1220] dark:text-slate-200">
         <div class="min-h-screen flex items-center justify-center p-4">
-            <div class="w-full max-w-xl rounded-[22px] bg-slate-900 text-slate-200 shadow-xl ring-1 ring-slate-700 p-6">
+            <div
+                class="w-full max-w-xl rounded-[22px] bg-white text-gray-900 shadow-xl ring-1 ring-slate-200 p-6 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">
                 <!-- Header -->
                 <div class="mb-6 text-center">
-                    <h1 class="text-2xl font-bold text-white">Booking Your Car</h1>
-                    <p class="mt-1 text-sm text-slate-400">Fill in the details below to reserve your vehicle</p>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Booking Your Car</h1>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Fill in the details below to reserve your
+                        vehicle</p>
                 </div>
 
                 @if ($errors->has('booking'))
-                    <div class="mb-4 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                    <div
+                        class="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/40 dark:bg-red-500/10 dark:text-red-200">
                         {{ $errors->first('booking') }}
                     </div>
                 @endif
@@ -33,10 +27,10 @@
 
                     <!-- Select car -->
                     <div class="space-y-2">
-                        <label class="text-sm font-medium text-slate-200">Select a car <span
+                        <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Select a car <span
                                 class="text-red-500">*</span></label>
                         <select name="car_id" id="car_id" required
-                            class="w-full rounded-xl border border-slate-300 bg-slate-900 text-slate-200 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-600">
+                            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:ring-slate-600">
                             <option value="">-- Choose car --</option>
                             @foreach ($cars ?? [] as $car)
                                 <option value="{{ $car->id }}" data-price="{{ $car->price_per_day ?? $car->price ?? 0 }}" @selected(old('car_id') == $car->id)>
@@ -46,22 +40,30 @@
                         </select>
 
                         <!-- Price Display -->
-                        <div id="price-display" class="hidden mt-2 p-3 rounded-xl bg-slate-800 border border-slate-700">
+                        <div id="price-display"
+                            class="hidden mt-2 p-3 rounded-xl bg-slate-100 text-slate-800 border border-slate-200 dark:bg-slate-800 dark:text-slate-100 dark:border-slate-700">
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-sm text-slate-300">Price per day:</span>
-                                    <span id="price-value" class="text-base font-semibold text-white">Rp 0</span>
+                                    <span class="text-sm text-slate-600 dark:text-slate-300">Price per day:</span>
+                                    <span id="price-value" class="text-base font-semibold text-gray-900 dark:text-white">Rp
+                                        0</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-sm text-slate-300">Rental duration:</span>
-                                    <span id="rental-days" class="text-base font-semibold text-white">0 days</span>
+                                    <span class="text-sm text-slate-600 dark:text-slate-300">Rental duration:</span>
+                                    <span id="rental-days" class="text-base font-semibold text-gray-900 dark:text-white">0
+                                        days</span>
                                 </div>
-                                <div class="border-t border-slate-700 pt-2 mt-2">
+                                <div class="border-t border-slate-200 pt-2 mt-2 dark:border-slate-700">
                                     <div class="flex items-center justify-between">
-                                        <span class="text-sm font-medium text-slate-200">Total Price:</span>
-                                        <span id="total-price" class="text-lg font-bold text-emerald-400">Rp 0</span>
+                                        <span class="text-sm font-medium text-slate-800 dark:text-slate-200">Total
+                                            Price:</span>
+                                        <span id="total-price"
+                                            class="text-lg font-bold text-emerald-600 dark:text-emerald-400">Rp 0</span>
                                     </div>
                                 </div>
+                                <p class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+                                    Catatan: pemesanan pada hari Sabtu dan Minggu dikenakan tambahan harga 20%.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -69,21 +71,19 @@
                     <!-- Pick up -->
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Pick up date <span
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Pick up date <span
                                     class="text-red-500">*</span></label>
                             <div class="relative">
                                 <input type="date" name="pickup_date" id="pickup_date" required
-                                    class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
-                                    style="color-scheme: dark;">
+                                    class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600 dark:[color-scheme:dark]">
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Pick up time <span
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Pick up time <span
                                     class="text-red-500">*</span></label>
                             <div class="relative">
                                 <input type="time" name="pickup_time" required
-                                    class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
-                                    style="color-scheme: dark;">
+                                    class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600 dark:[color-scheme:dark]">
                             </div>
                         </div>
                     </div>
@@ -91,37 +91,35 @@
                     <!-- Return -->
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Return date <span
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Return date <span
                                     class="text-red-500">*</span></label>
                             <div class="relative">
                                 <input type="date" name="return_date" id="return_date" required
-                                    class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
-                                    style="color-scheme: dark;">
+                                    class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600 dark:[color-scheme:dark]">
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Return time <span
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Return time <span
                                     class="text-red-500">*</span></label>
                             <div class="relative">
                                 <input type="time" name="return_time" required
-                                    class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
-                                    style="color-scheme: dark;">
+                                    class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600 dark:[color-scheme:dark]">
                             </div>
                         </div>
                     </div>
 
                     <!-- Pickup method -->
                     <div class="space-y-2">
-                        <label class="text-sm font-medium text-slate-200">Pickup method</label>
-                        <div class="flex gap-3">
+                        <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Pickup method</label>
+                        <div class="flex flex-wrap gap-3">
                             <label
-                                class="peer/self group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer text-white">
-                                <input type="radio" name="pickup_method" value="self_pickup" class="accent-slate-900" {{ old('pickup_method', 'self_pickup') === 'self_pickup' ? 'checked' : '' }}>
+                                class="peer/self group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800">
+                                <input type="radio" name="pickup_method" value="self_pickup" class="accent-indigo-600 dark:accent-indigo-400" {{ old('pickup_method', 'self_pickup') === 'self_pickup' ? 'checked' : '' }}>
                                 <span>Self pickup</span>
                             </label>
                             <label
-                                class="peer/del group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer text-white">
-                                <input type="radio" name="pickup_method" value="delivery" class="accent-slate-900" {{ old('pickup_method') === 'delivery' ? 'checked' : '' }}>
+                                class="peer/del group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800">
+                                <input type="radio" name="pickup_method" value="delivery" class="accent-indigo-600 dark:accent-indigo-400" {{ old('pickup_method') === 'delivery' ? 'checked' : '' }}>
                                 <span>Delivery</span>
                             </label>
                         </div>
@@ -129,12 +127,12 @@
 
                     <!-- Delivery address (visible when pickup_method = delivery) -->
                     <div id="delivery-address-field" class="space-y-2 hidden">
-                        <label class="text-sm font-medium text-slate-200">Delivery address <span class="text-red-500">*</span></label>
+                        <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Delivery address <span class="text-red-500">*</span></label>
 
                         <!-- GPS Location -->
                         <div class="flex gap-2">
                             <input type="text" id="gps_location" name="gps_location" readonly value="{{ old('gps_location') }}"
-                                class="flex-1 rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-slate-600 text-sm focus:outline-none"
+                                class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:ring-slate-600"
                                 placeholder="Click GPS button to get location">
                             <button type="button" id="gps_button"
                                 class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -150,33 +148,33 @@
 
                         <!-- Detail Address -->
                         <textarea id="delivery_address_input" name="delivery_address" rows="2" value="{{ old('delivery_address') }}"
-                            class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
+                            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600"
                             placeholder="Add detailed address (building name, floor, unit number, etc.)">{{ old('delivery_address') }}</textarea>
                     </div>
 
                     <!-- Contact -->
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Your full name <span
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Your full name <span
                                     class="text-red-500">*</span></label>
                             <input type="text" name="full_name" required value="{{ auth()->user()->name }}" readonly
-                                class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
+                                class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600"
                                 placeholder="Nama lengkap">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Email <span
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Email <span
                                     class="text-red-500">*</span></label>
                             <input type="email" name="email" required value="{{ auth()->user()->email }}" readonly
-                                class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
+                                class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600"
                                 placeholder="you@example.com">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-2">
-                            <label class="text-sm font-medium text-slate-200">Phone</label>
+                            <label class="text-sm font-medium text-slate-800 dark:text-slate-200">Phone</label>
                             <input type="tel" name="phone" value="{{ old('phone', auth()->user()->phone) }}" readonly
-                                class="w-full rounded-xl border border-slate-300 bg-slate-900 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-slate-600"
+                                class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:ring-slate-600"
                                 placeholder="08xxxxxxxxxx">
                         </div>
                     </div>
@@ -184,16 +182,14 @@
                     <!-- Submit -->
                     <div class="pt-2">
                         <button type="submit"
-                            class="w-full rounded-xl bg-slate-800 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-600">
+                            class="w-full rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-slate-800 dark:hover:bg-slate-700 dark:focus:ring-slate-600">
                             Submit booking
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-    </body>
-
-    </html>
+    </div>
 @endsection
 
 @section('scripts')
@@ -207,6 +203,30 @@
         const pickupDate = document.getElementById('pickup_date');
         const returnDate = document.getElementById('return_date');
 
+        // Lock dates so user cannot choose past dates
+        (function configureDateLimits() {
+            if (!pickupDate || !returnDate) return;
+
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const todayStr = `${yyyy}-${mm}-${dd}`;
+
+            pickupDate.min = todayStr;
+            // Default min return date is today as well; we'll update when pickup changes
+            returnDate.min = todayStr;
+
+            pickupDate.addEventListener('change', () => {
+                if (!pickupDate.value) return;
+                // Ensure return date can't be before pickup date
+                returnDate.min = pickupDate.value;
+                if (returnDate.value && returnDate.value < pickupDate.value) {
+                    returnDate.value = pickupDate.value;
+                }
+            });
+        })();
+
         function calculateTotal() {
             const selectedOption = carSelect.options[carSelect.selectedIndex];
             const price = parseFloat(selectedOption.getAttribute('data-price'));
@@ -217,20 +237,32 @@
                 const pickupDateTime = new Date(pickup);
                 const returnDateTime = new Date(returnD);
                 const diffTime = Math.abs(returnDateTime - pickupDateTime);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const rawDiffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const days = Math.max(1, rawDiffDays);
 
-                if (diffDays > 0) {
-                    const total = price * diffDays;
-                    const formattedPrice = price.toLocaleString('id-ID');
-                    const formattedTotal = total.toLocaleString('id-ID');
-
-                    priceValue.textContent = `Rp ${formattedPrice}`;
-                    rentalDays.textContent = `${diffDays} day${diffDays > 1 ? 's' : ''}`;
-                    totalPrice.textContent = `Rp ${formattedTotal}`;
-                    priceDisplay.classList.remove('hidden');
-                } else {
-                    priceDisplay.classList.add('hidden');
+                // Hitung berapa hari weekend (Sabtu/Minggu) untuk kenaikan 20%
+                let weekendDays = 0;
+                const current = new Date(pickupDateTime.getTime());
+                for (let i = 0; i < days; i++) {
+                    const day = current.getDay(); // 0 = Minggu, 6 = Sabtu
+                    if (day === 0 || day === 6) {
+                        weekendDays++;
+                    }
+                    current.setDate(current.getDate() + 1);
                 }
+
+                const weekdayDays = days - weekendDays;
+                const weekdayTotal = weekdayDays * price;
+                const weekendTotal = weekendDays * price * 1.2; // +20% untuk weekend
+                const total = weekdayTotal + weekendTotal;
+
+                const formattedPrice = price.toLocaleString('id-ID');
+                const formattedTotal = total.toLocaleString('id-ID');
+
+                priceValue.textContent = `Rp ${formattedPrice}`;
+                rentalDays.textContent = `${days} day${days > 1 ? 's' : ''}`;
+                totalPrice.textContent = `Rp ${formattedTotal}`;
+                priceDisplay.classList.remove('hidden');
             } else if (price && carSelect.value) {
                 const formattedPrice = price.toLocaleString('id-ID');
                 priceValue.textContent = `Rp ${formattedPrice}`;

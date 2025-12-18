@@ -22,7 +22,7 @@ export default {
       },
     },
   },
-  darkMode: 'media',
+  darkMode: 'class',
   plugins: [
     require('tailwind-scrollbar-hide')
   ],

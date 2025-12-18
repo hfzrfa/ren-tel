@@ -46,11 +46,11 @@
     <div class="relative mx-auto max-w-md rounded-3xl border border-slate-800/60 bg-slate-900/80 p-4 shadow-2xl shadow-indigo-900/40">
 
         <!-- IMAGE FIX -->
-        <div class="overflow-hidden rounded-2xl bg-slate-900">
+        <div class="overflow-hidden rounded-3xl ">
             <img
-                src="{{ asset('images/hero-car.png') }}"
+                src="{{ asset('images/mazda3.png') }}"
                 alt="Premium rental car"
-                class="w-full h-64 object-cover object-center block"
+                class="w-full h-full object-cover object-center block"
                 loading="lazy"
             >
         </div>

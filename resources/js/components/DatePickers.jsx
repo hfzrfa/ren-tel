@@ -65,3 +65,5 @@ export function Calendar24() {
         </div>
     );
 }
+
+export default Calendar24;

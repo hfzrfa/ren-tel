@@ -1,4 +1,4 @@
-<!-- Testimonials -->
+{{-- <!-- Testimonials -->
 <section id="testimonials" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
     <div class="rounded-3xl bg-linear-to-br from-indigo-600 to-indigo-700 p-px shadow-md">
         <div class="rounded-3xl bg-white p-8 dark:bg-gray-950">
@@ -24,4 +24,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}

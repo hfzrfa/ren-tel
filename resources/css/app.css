@@ -30,3 +30,10 @@
         -ms-overflow-style: none;
     }
 }
+
+@layer base {
+    :root[data-theme='dark'] input[type='date'],
+    :root[data-theme='dark'] input[type='time'] {
+        color-scheme: dark;
+    }
+}
