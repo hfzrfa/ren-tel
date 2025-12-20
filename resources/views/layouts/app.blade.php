@@ -66,7 +66,9 @@
     @yield('head')
 </head>
 
-<body class="min-h-full bg-[#F4F4F4] text-black antialiased dark:bg-gray-950 dark:text-gray-100">
+{{-- <body class="min-h-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50"></body> --}}
+
+<body class="min-h-full bg-[#f4f4f4] text-slate-50">
     @if (! View::hasSection('hide_nav'))
         @include('partials.nav')
     @endif

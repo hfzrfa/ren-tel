@@ -5,6 +5,7 @@
   "resources/js/components/DatePickers.jsx": [],
   "resources/js/components/Dock.jsx": [],
   "resources/js/components/SpotlightCard.jsx": [],
+  "resources/js/components/ui/TiltedCard.tsx": [],
   "resources/js/components/ui/ui/button.tsx": [],
   "resources/js/components/ui/ui/calendar.tsx": [],
   "resources/js/components/ui/ui/input.tsx": [],
@@ -12,6 +13,7 @@
   "resources/js/components/ui/ui/popover.tsx": [],
   "resources/js/date-pickers-app.jsx": [],
   "resources/js/dock-app.jsx": [],
+  "resources/js/hero-tilted-card-app.tsx": [],
   "resources/js/lib/utils.ts": [],
   "resources/js/theme.js": []
 }

@@ -1,7 +1,7 @@
 <!-- CTA -->
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-    <div
-        class="relative overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-indigo-900 to-indigo-700 p-8 text-white">
+        <div
+		class="relative overflow-hidden rounded-3xl bg-linear-to-br from-black via-neutral-900 to-neutral-800 p-8 text-white">
         <div class="relative z-10 grid items-center gap-6 md:grid-cols-2">
             <div>
                 <h2 class="text-2xl font-bold tracking-tight">Ready to roll?</h2>
@@ -10,7 +10,7 @@
             </div>
             <div class="md:text-right">
                 <a href="/book"
-                    class="inline-flex items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100">
+                    class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md hover:bg-gray-100">
                     Book your car
                     <svg class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

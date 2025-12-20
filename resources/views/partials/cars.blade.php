@@ -2,11 +2,11 @@
 <section id="cars" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
     <header class="flex items-end justify-between gap-4">
         <div>
-            <h2 class="text-2xl font-bold tracking-tight">Popular choices</h2>
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">Handpicked vehicles ready for your next trip.</p>
+            <h2 class="text-2xl font-bold tracking-tight text-black">Popular choices</h2>
+            <p class="mt-1 text-sm text-gray-600 hover:text-black">Handpicked vehicles ready for your next trip.</p>
         </div>
         <a href="{{ route('cars.index') }}"
-            class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
+            class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-black hover:text-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded dark:hover:text-white">
             See all cars
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14" />
@@ -15,10 +15,10 @@
         </a>
     </header>
 
-    <div id="carsGrid" class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div id="carsGrid" class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         @forelse ($cars as $car)
             <article
-                class="group overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-within:ring-2 focus-within:ring-indigo-500 dark:border-gray-800 dark:bg-gray-900">
+                class="group overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-within:ring-2 focus-within:ring-indigo-500  dark:bg-[#f5f5f5] dark:hover:shadow-lg">
                 <div class="relative aspect-4/3 overflow-hidden">
                     @php
                         $img = $car->image_path
@@ -46,24 +46,24 @@
                 <div class="p-4">
                     <div class="flex items-start justify-between gap-3">
                         <div class="min-w-0">
-                            <h3 class="line-clamp-1 text-base font-semibold leading-6">
+                            <h3 class="line-clamp-1 text-base font-semibold leading-6 text-black">
                                 {{ $car->name }}
                             </h3>
-                            <p class="mt-0.5 text-xs text-gray-500">
+                            <p class="mt-0.5  text-black">
                                 {{ strtoupper($car->type) }} • {{ ucfirst($car->transmission) }}
                             </p>
                         </div>
                         <div class="text-right">
-                            <div class="text-lg font-bold">
+                            <div class="text-lg font-bold text-black">
                                 Rp {{ number_format($car->price_per_day, 0, ',', '.') }}
                                 <span class="text-sm font-medium text-gray-500">/day</span>
                             </div>
                         </div>
                     </div>
 
-                    <ul class="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-gray-600 dark:text-gray-300">
+                    <ul class="mt-3 flex flex-wrap items-center gap-2 text-[11px]">
                         <li
-                            class="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
+                            class="inline-flex items-center gap-1 rounded-md bg-[#1e1e1e] px-2 py-1 text-white ring-1 ring-gray-200 transition-colors hover:bg-white hover:text-[#181818] hover:ring-[#181818]">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M20 13v-2a8 8 0 1 0-16 0v2" />
@@ -76,7 +76,7 @@
                             AC
                         </li>
                         <li
-                            class="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
+                            class="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-[#181818] ring-1 ring-gray-200 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:hover:bg-gray-700">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 12l5-5 5 5" />
@@ -85,7 +85,7 @@
                             {{ ucfirst($car->transmission) }}
                         </li>
                         <li
-                            class="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700">
+                            class="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-[#181818] ring-1 ring-gray-200 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-700 dark:hover:bg-gray-700">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 7h20M2 17h20M4 7l2 10m12-10l2 10M6 11h12" />
@@ -107,7 +107,7 @@
         @empty
             <div class="sm:col-span-2 lg:col-span-3">
                 <div
-                    class="rounded-xl border border-gray-200 bg-white p-6 text-center text-sm text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+                    class="rounded-xl border border-gray-200 bg-white p-6 text-center text-sm text-gray-600 dark:border-gray-800 dark:bg-gray-900 hover:text-black">
                     No cars found. Try adjusting filters.
                 </div>
             </div>

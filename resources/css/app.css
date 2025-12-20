@@ -36,4 +36,10 @@
     :root[data-theme='dark'] input[type='time'] {
         color-scheme: dark;
     }
+
+    /* Make native date & time picker icons appear black */
+    input[type='date']::-webkit-calendar-picker-indicator,
+    input[type='time']::-webkit-calendar-picker-indicator {
+        filter: brightness(0);
+    }
 }

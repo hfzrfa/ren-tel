@@ -3,6 +3,7 @@ import "./dock-app.jsx";
 import "./benefits-app.jsx";
 import "./date-pickers-app.jsx";
 import "./theme.js";
+import "./hero-tilt-dom";
 
 // Dynamic cars fetching for search + periodic refresh (simple real-time)
 document.addEventListener("DOMContentLoaded", () => {
