@@ -48,6 +48,15 @@ class ReservationForm
                     ->label('Delivery address')
                     ->visible(fn (callable $get) => $get('pickup_method') === 'delivery')
                     ->required(fn (callable $get) => $get('pickup_method') === 'delivery'),
+                Radio::make('extras.payment_method')
+                    ->label('Payment method')
+                    ->options([
+                        'cash' => 'Cash',
+                        'transfer' => 'Transfer',
+                        'qris' => 'QRIS',
+                    ])
+                    ->default('cash')
+                    ->inline(),
                 DatePicker::make('return_date')
                     ->required(),
                 TimePicker::make('return_time')

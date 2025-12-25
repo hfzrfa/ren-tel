@@ -10,8 +10,8 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        $email = env('ADMIN_EMAIL', 'admin@example.com');
-        $password = env('ADMIN_PASSWORD', 'password');
+        $email = env('ADMIN_EMAIL', 'superadmin@admin.com');
+        $password = env('ADMIN_PASSWORD', '1234');
 
         Admin::query()->firstOrCreate(
             ['email' => $email],

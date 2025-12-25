@@ -2,18 +2,19 @@
 
 namespace App\Filament\Resources\Cars;
 
-use BackedEnum;
+use App\Models\Admin;
 use App\Models\Car;
-use Filament\Tables\Table;
 use App\Models\Reservation;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
-use Filament\Support\Icons\Heroicon;
 use App\Filament\Resources\Cars\Pages\EditCar;
 use App\Filament\Resources\Cars\Pages\ListCars;
 use App\Filament\Resources\Cars\Pages\CreateCar;
 use App\Filament\Resources\Cars\Schemas\CarForm;
 use App\Filament\Resources\Cars\Tables\CarsTable;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 
 class CarResource extends Resource
 {
@@ -24,6 +25,38 @@ class CarResource extends Resource
      protected static string|\UnitEnum|null $navigationGroup = 'Car Management';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static function adminIsSuper(): bool
+    {
+        $user = auth('admin')->user();
+
+        return $user instanceof Admin && $user->isSuperAdmin();
+    }
+
+    public static function canViewAny(): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canCreate(): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canEdit($record): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canDelete($record): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return static::adminIsSuper();
+    }
 
     public static function form(Schema $schema): Schema
     {

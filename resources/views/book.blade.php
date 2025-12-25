@@ -44,27 +44,24 @@
 
                         <!-- Price Display -->
                         <div id="price-display"
-                            class="hidden mt-2 p-3 rounded-xl bg-slate-100 text-slate-800 border border-slate-200">
+                            class="hidden mt-3 rounded-2xl border border-white/60 bg-white/80 px-4 py-3 text-slate-900 shadow-sm shadow-black/10">
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-sm text-slate-600 dark:text-slate-300">Price per day:</span>
-                                    <span id="price-value" class="text-base font-semibold text-gray-900 dark:text-white">Rp
-                                        0</span>
+                                    <span class="text-xs font-medium text-slate-600">Price per day</span>
+                                    <span id="price-value" class="text-base font-semibold text-slate-900">Rp 0</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-sm text-slate-600 dark:text-slate-300">Rental duration:</span>
-                                    <span id="rental-days" class="text-base font-semibold text-gray-900 dark:text-white">0
-                                        days</span>
+                                    <span class="text-xs font-medium text-slate-600">Rental duration</span>
+                                    <span id="rental-days" class="text-base font-semibold text-slate-900">0 days</span>
                                 </div>
-                                <div class="border-t border-slate-200 pt-2 mt-2 dark:border-slate-700">
+                                <div class="border-t border-slate-200/70 pt-2 mt-2">
                                     <div class="flex items-center justify-between">
-                                        <span class="text-sm font-medium text-slate-800 dark:text-slate-200">Total
-                                            Price:</span>
+                                        <span class="text-sm font-semibold text-slate-800">Total price</span>
                                         <span id="total-price"
-                                            class="text-lg font-bold text-emerald-600 dark:text-emerald-400">Rp 0</span>
+                                            class="text-lg font-bold text-emerald-600">Rp 0</span>
                                     </div>
                                 </div>
-                                <p class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+                                <p class="mt-1 text-[11px] text-slate-500">
                                     Catatan: pemesanan pada hari Sabtu dan Minggu dikenakan tambahan harga 20%.
                                 </p>
                             </div>
@@ -128,6 +125,35 @@
                                         class="accent-black"
                                     {{ old('pickup_method') === 'delivery' ? 'checked' : '' }}>
                                 <span>Delivery</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Payment method -->
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-black/80">Payment method <span
+                                class="text-red-500">*</span></label>
+                        <div class="flex flex-wrap gap-3">
+                            <label
+                                class="group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer">
+                                <input type="radio" name="payment_method" value="cash"
+                                        class="accent-black"
+                                    {{ old('payment_method', 'cash') === 'cash' ? 'checked' : '' }}>
+                                <span>Cash</span>
+                            </label>
+                            <label
+                                class="group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer">
+                                <input type="radio" name="payment_method" value="transfer"
+                                        class="accent-black"
+                                    {{ old('payment_method') === 'transfer' ? 'checked' : '' }}>
+                                <span>Transfer</span>
+                            </label>
+                            <label
+                                class="group inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-slate-800 hover:bg-slate-50 cursor-pointer">
+                                <input type="radio" name="payment_method" value="qris"
+                                        class="accent-black"
+                                    {{ old('payment_method') === 'qris' ? 'checked' : '' }}>
+                                <span>QRIS</span>
                             </label>
                         </div>
                     </div>

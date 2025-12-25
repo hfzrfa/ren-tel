@@ -19,7 +19,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Infolists\Components\CodeEntry;
-use Phiki\Theme\Theme;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -34,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->authGuard('admin')
             ->login()
-            ->brandName('Admin Panel')
+            ->brandName('Admin Panel Rentel')
             ->font('Poppins')
             ->colors([
                 'primary' => Color::Blue,

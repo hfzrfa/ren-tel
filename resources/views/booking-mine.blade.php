@@ -70,14 +70,15 @@
                                     <th class="whitespace-nowrap px-4 py-3 text-right font-medium">Total</th>
                                     <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Status</th>
                                     <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Pickup type</th>
+                                    <th class="whitespace-nowrap px-4 py-3 text-left font-medium">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-white/[0.06]">
+                            <tbody class="divide-y divide-slate-100">
                                 @foreach ($reservations as $reservation)
                                     @php
                                         $pickup = $reservation->pickup_date;
                                         $return = $reservation->return_date;
-                                        $pickupType = $reservation->pickup_type ?? 'self_pickup';
+                                        $pickupType = $reservation->pickup_method ?? 'self_pickup';
                                         $pickupLabel = \Illuminate\Support\Str::headline($pickupType);
                                         $status = $reservation->status ?? 'pending';
 
@@ -150,6 +151,21 @@
                                                 class="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-[0.7rem] font-medium text-gray-800 ring-1 ring-slate-200">
                                                 {{ $pickupLabel }}
                                             </span>
+                                        </td>
+
+                                        {{-- actions --}}
+                                        <td class="whitespace-nowrap px-4 py-3 align-middle text-right">
+                                            @if (!in_array($status, ['completed', 'cancelled'], true))
+                                                <form method="POST"
+                                                    action="{{ route('booking.cancel', $reservation) }}"
+                                                    onsubmit="return confirm('Cancel this booking?');">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="rounded-full border border-rose-300 bg-white px-3 py-1 text-[0.7rem] font-semibold text-rose-600 shadow-sm transition hover:border-rose-400 hover:bg-rose-50">
+                                                        Cancel
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

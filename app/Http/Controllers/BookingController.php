@@ -31,6 +31,7 @@ class BookingController extends Controller
             'return_date' => ['required','date','after_or_equal:pickup_date'],
             'return_time' => ['required'],
             'pickup_method' => ['required','in:self_pickup,delivery'],
+            'payment_method' => ['required','in:cash,transfer,qris'],
             'delivery_address' => ['nullable','string','required_if:pickup_method,delivery','max:500'],
             'gps_location' => ['nullable','string','max:255','required_if:pickup_method,delivery'],
             'full_name' => ['required','string','max:255'],
@@ -108,6 +109,9 @@ class BookingController extends Controller
             'return_time' => $validated['return_time'],
             'status' => 'pending',
             'total_price' => $total,
+            'extras' => [
+                'payment_method' => $validated['payment_method'],
+            ],
         ]);
 
         return redirect()->route('booking.success')->with('reservation_id', $reservation->id);
@@ -129,5 +133,28 @@ class BookingController extends Controller
         return view('booking-mine', [
             'reservations' => $reservations,
         ]);
+    }
+
+    public function cancel(Reservation $reservation)
+    {
+        $user = Auth::user();
+
+        if (! $user || $reservation->user_id !== $user->id) {
+            abort(403);
+        }
+
+        if (in_array($reservation->status, ['completed', 'cancelled'], true)) {
+            return redirect()
+                ->route('booking.mine')
+                ->with('error', 'This booking can no longer be cancelled.');
+        }
+
+        $reservation->update([
+            'status' => 'cancelled',
+        ]);
+
+        return redirect()
+            ->route('booking.mine')
+            ->with('status', 'Your booking has been cancelled.');
     }
 }

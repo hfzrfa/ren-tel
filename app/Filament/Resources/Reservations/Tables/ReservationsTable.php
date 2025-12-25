@@ -40,6 +40,17 @@ class ReservationsTable
                     ->label('Pickup')
                     ->badge()
                     ->formatStateUsing(fn ($state) => $state === 'delivery' ? 'Delivery' : 'Self pickup'),
+                TextColumn::make('extras.payment_method')
+                    ->label('Payment')
+                    ->badge()
+                    ->formatStateUsing(function ($state) {
+                        return match ($state) {
+                            'cash' => 'Cash',
+                            'transfer' => 'Transfer',
+                            'qris' => 'QRIS',
+                            default => '—',
+                        };
+                    }),
                 TextColumn::make('delivery_address')
                     ->label('Delivery address')
                     ->toggleable(isToggledHiddenByDefault: true),

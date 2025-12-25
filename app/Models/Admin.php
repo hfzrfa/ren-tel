@@ -32,4 +32,20 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isSuperAdmin(): bool
+    {
+        $emails = config('admin.super_admin_emails', []);
+
+        return in_array(
+            strtolower($this->email),
+            array_map('strtolower', $emails),
+            true,
+        );
+    }
+
+    public function getRoleLabelAttribute(): string
+    {
+        return $this->isSuperAdmin() ? 'Super Admin' : 'Admin';
+    }
 }

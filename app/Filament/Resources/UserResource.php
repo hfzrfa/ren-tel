@@ -2,23 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use BackedEnum;
-use Filament\Forms;
+use App\Models\Admin;
 use App\Models\User;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Actions\Action;
-use Filament\Schemas\Schema;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Hash;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Notifications\Notification;
 use App\Filament\Resources\UserResource\Pages;
+use BackedEnum;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms;
+use Filament\Notifications\Notification;
+use Filament\Resources\Resource;
 use Filament\Schemas\Components\Form as SchemaForm;
+use Filament\Schemas\Schema;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 class UserResource extends Resource
@@ -28,6 +29,38 @@ class UserResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-circle';
 
     protected static string|\UnitEnum|null $navigationGroup = 'User Management';
+
+    protected static function adminIsSuper(): bool
+    {
+        $user = auth('admin')->user();
+
+        return $user instanceof Admin && $user->isSuperAdmin();
+    }
+
+    public static function canViewAny(): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canCreate(): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canEdit($record): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canDelete($record): bool
+    {
+        return static::adminIsSuper();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return static::adminIsSuper();
+    }
 
     public static function form(Schema $schema): Schema
     {

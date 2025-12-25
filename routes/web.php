@@ -24,4 +24,6 @@ Route::middleware('auth')->group(function () {
 	Route::post('/book', [BookingController::class, 'store'])->name('booking.store');
 	Route::get('/book/success', [BookingController::class, 'success'])->name('booking.success');
 	Route::get('/my-bookings', [BookingController::class, 'mine'])->name('booking.mine');
+	Route::post('/my-bookings/{reservation}/cancel', [BookingController::class, 'cancel'])
+		->name('booking.cancel');
 });
