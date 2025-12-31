@@ -4,7 +4,7 @@
 
 @section('content')
     @include('partials.hero')
-    @include('partials.benefits')
+    {{-- @include('partials.benefits') --}}
     @include('partials.cars')
     @include('partials.how')
     @include('partials.testimonials')

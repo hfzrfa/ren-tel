@@ -698,225 +698,35 @@ const mount = document.getElementById("react-date-pickers");
 if (mount) {
   createRoot(mount).render(/* @__PURE__ */ jsx(Calendar24, {}));
 }
-const STORAGE_KEY = "rentel-theme";
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-const readStoredTheme = () => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "dark" || stored === "light") {
-      return stored;
-    }
-  } catch (_err) {
-  }
-  return null;
-};
-const resolveTheme = () => {
-  const stored = readStoredTheme();
-  if (stored) return stored;
-  if (document.documentElement.dataset.theme === "dark") return "dark";
-  return mediaQuery.matches ? "dark" : "light";
-};
-const updateThemeColorMeta = (theme) => {
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (!meta) return;
-  const content = theme === "dark" ? "#0B1220" : "#F4F4F4";
-  meta.setAttribute("content", content);
-};
-const applyTheme = (theme, { persist = true } = {}) => {
-  const mode = theme === "dark" ? "dark" : "light";
-  const root = document.documentElement;
-  root.classList.toggle("dark", mode === "dark");
-  root.dataset.theme = mode;
-  root.style.colorScheme = mode;
-  if (persist) {
-    try {
-      localStorage.setItem(STORAGE_KEY, mode);
-    } catch (_err) {
-    }
-  }
-  updateThemeColorMeta(mode);
-  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-    button.setAttribute("aria-pressed", mode === "dark" ? "true" : "false");
-    const sun = button.querySelector('[data-theme-icon="light"]');
-    const moon = button.querySelector('[data-theme-icon="dark"]');
-    if (sun) sun.classList.toggle("hidden", mode !== "light");
-    if (moon) moon.classList.toggle("hidden", mode !== "dark");
-    const label = button.querySelector("[data-theme-label]");
-    if (label) {
-      label.textContent = mode === "dark" ? "Switch to light mode" : "Switch to dark mode";
-    }
-  });
-};
-const toggleTheme = () => {
-  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  applyTheme(next);
-};
-const initial = resolveTheme();
-applyTheme(initial, { persist: Boolean(readStoredTheme()) });
-const bindToggles = () => {
-  document.addEventListener(
-    "click",
-    (event) => {
-      const button = event.target.closest("[data-theme-toggle]");
-      if (!button) return;
-      toggleTheme();
-    },
-    { passive: true }
-  );
-};
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", bindToggles, { once: true });
-} else {
-  bindToggles();
-}
-mediaQuery.addEventListener("change", (event) => {
-  if (readStoredTheme()) return;
-  applyTheme(event.matches ? "dark" : "light", { persist: false });
-});
-const springValues = {
-  damping: 30,
-  stiffness: 100,
-  mass: 2
-};
-function TiltedCard({
-  imageSrc,
-  altText = "Tilted card image",
-  captionText = "",
-  containerHeight = "300px",
-  containerWidth = "100%",
-  imageHeight = "300px",
-  imageWidth = "300px",
-  scaleOnHover = 1.1,
-  rotateAmplitude = 14,
-  showMobileWarning = true,
-  showTooltip = true,
-  overlayContent = null,
-  displayOverlayContent = false
-}) {
-  const ref = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useSpring(useMotionValue(0), springValues);
-  const rotateY = useSpring(useMotionValue(0), springValues);
-  const scale = useSpring(1, springValues);
-  const opacity = useSpring(0);
-  const rotateFigcaption = useSpring(0, {
-    stiffness: 350,
-    damping: 30,
-    mass: 1
-  });
-  const [lastY, setLastY] = useState(0);
-  function handleMouse(e) {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
+function mountHeroTilt() {
+  const card = document.getElementById("hero-tilt-card");
+  if (!card) return;
+  const maxRotate = 10;
+  const scaleOnHover = 1.03;
+  function handleMove(e) {
+    const rect = card.getBoundingClientRect();
     const offsetX = e.clientX - rect.left - rect.width / 2;
     const offsetY = e.clientY - rect.top - rect.height / 2;
-    const rotationX = offsetY / (rect.height / 2) * -rotateAmplitude;
-    const rotationY = offsetX / (rect.width / 2) * rotateAmplitude;
-    rotateX.set(rotationX);
-    rotateY.set(rotationY);
-    x.set(e.clientX - rect.left);
-    y.set(e.clientY - rect.top);
-    const velocityY = offsetY - lastY;
-    rotateFigcaption.set(-velocityY * 0.6);
-    setLastY(offsetY);
+    const rotateX = -offsetY / (rect.height / 2) * maxRotate;
+    const rotateY = offsetX / (rect.width / 2) * maxRotate;
+    card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(
+      2
+    )}deg) rotateY(${rotateY.toFixed(
+      2
+    )}deg) scale(${scaleOnHover})`;
   }
-  function handleMouseEnter() {
-    scale.set(scaleOnHover);
-    opacity.set(1);
+  function reset() {
+    card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";
   }
-  function handleMouseLeave() {
-    opacity.set(0);
-    scale.set(1);
-    rotateX.set(0);
-    rotateY.set(0);
-    rotateFigcaption.set(0);
-  }
-  return /* @__PURE__ */ jsxs(
-    "figure",
-    {
-      ref,
-      className: "relative w-full h-full [perspective:800px] flex flex-col items-center justify-center",
-      style: {
-        height: containerHeight,
-        width: containerWidth
-      },
-      onMouseMove: handleMouse,
-      onMouseEnter: handleMouseEnter,
-      onMouseLeave: handleMouseLeave,
-      children: [
-        showMobileWarning && /* @__PURE__ */ jsx("div", { className: "absolute top-4 text-center text-sm block sm:hidden", children: "This effect is not optimized for mobile. Check on desktop." }),
-        /* @__PURE__ */ jsxs(
-          motion.div,
-          {
-            className: "relative [transform-style:preserve-3d]",
-            style: {
-              width: imageWidth,
-              height: imageHeight,
-              rotateX,
-              rotateY,
-              scale
-            },
-            children: [
-              /* @__PURE__ */ jsx(
-                motion.img,
-                {
-                  src: imageSrc,
-                  alt: altText,
-                  className: "absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]",
-                  style: {
-                    width: imageWidth,
-                    height: imageHeight
-                  }
-                }
-              ),
-              displayOverlayContent && overlayContent && /* @__PURE__ */ jsx(motion.div, { className: "absolute top-0 left-0 z-[2] will-change-transform [transform:translateZ(30px)]", children: overlayContent })
-            ]
-          }
-        ),
-        showTooltip && /* @__PURE__ */ jsx(
-          motion.figcaption,
-          {
-            className: "pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-[10px] text-[#2d2d2d] opacity-0 z-[3] hidden sm:block",
-            style: {
-              x,
-              y,
-              opacity,
-              rotate: rotateFigcaption
-            },
-            children: captionText
-          }
-        )
-      ]
-    }
-  );
+  reset();
+  card.addEventListener("mousemove", handleMove);
+  card.addEventListener("mouseleave", reset);
 }
-function mountHeroTiltedCard() {
-  const el = document.getElementById("react-hero-tilted-card");
-  if (!el) return;
-  const imageSrc = el.dataset.imageSrc || "/images/pict1.jpg";
-  const caption = el.dataset.caption || "Premium rental car";
-  const root = createRoot(el);
-  root.render(
-    /* @__PURE__ */ jsx(
-      TiltedCard,
-      {
-        imageSrc,
-        altText: caption,
-        captionText: caption,
-        containerHeight: "320px",
-        containerWidth: "100%",
-        imageHeight: "320px",
-        imageWidth: "100%",
-        scaleOnHover: 1.05,
-        rotateAmplitude: 14,
-        showMobileWarning: false,
-        showTooltip: true
-      }
-    )
-  );
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mountHeroTilt);
+} else {
+  mountHeroTilt();
 }
-document.addEventListener("DOMContentLoaded", mountHeroTiltedCard);
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("searchForm");
   const grid = document.getElementById("carsGrid");

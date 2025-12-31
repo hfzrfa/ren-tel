@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 class BookingController extends Controller
 {
@@ -14,6 +15,7 @@ class BookingController extends Controller
     {
         // Include price_per_day so the booking view can display pricing
         $cars = Car::query()
+            ->where('is_available', true)
             ->orderBy('name')
             ->get(['id', 'name', 'price_per_day']);
 
@@ -25,7 +27,10 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'car_id' => ['required','exists:cars,id'],
+            'car_id' => [
+                'required',
+                Rule::exists('cars', 'id')->where(fn ($q) => $q->where('is_available', true)),
+            ],
             'pickup_date' => ['required','date','after_or_equal:today'],
             'pickup_time' => ['required'],
             'return_date' => ['required','date','after_or_equal:pickup_date'],
@@ -58,7 +63,7 @@ class BookingController extends Controller
 
             if ($hasActiveReservation) {
                 return back()
-                    ->withErrors([
+                    ->withErrors([ // gabisa booking lebih dari 1
                         'booking' => 'You already have an active booking. You can create a new booking after the current booking is approved and the rental period has ended.',
                     ])
                     ->withInput();
@@ -68,6 +73,11 @@ class BookingController extends Controller
         // Compute total price: price_per_day × days
         // Weekend days (Saturday/Sunday) are charged +20%
         $car = Car::findOrFail($validated['car_id']);
+        if (! $car->is_available) {
+            return back()
+                ->withErrors(['car_id' => 'Selected car is currently unavailable.'])
+                ->withInput();
+        }
         $start = Carbon::parse($validated['pickup_date']);
         $end = Carbon::parse($validated['return_date']);
         $days = max(1, $start->diffInDays($end));

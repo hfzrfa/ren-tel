@@ -11,8 +11,16 @@ class CarController extends Controller
     {
         $filters = $request->only(['pickup','pickup_date','pickup_time','return_date','return_time','type','seats','max_price']);
 
+        $types = Car::query()
+            ->where('is_available', true)
+            ->whereNotNull('type')
+            ->distinct()
+            ->orderBy('type')
+            ->pluck('type');
+
         // For now, we ignore date availability constraints; could be enhanced with reservation overlaps check.
         $cars = Car::query()
+            ->where('is_available', true)
             ->search($filters)
             ->orderBy('price_per_day')
             ->limit(30)
@@ -21,6 +29,7 @@ class CarController extends Controller
         return view('welcome', [
             'cars' => $cars,
             'filters' => $filters,
+            'types' => $types,
         ]);
     }
 
@@ -28,7 +37,15 @@ class CarController extends Controller
     {
         $filters = $request->only(['pickup','pickup_date','pickup_time','return_date','return_time','type','seats','max_price']);
 
+        $types = Car::query()
+            ->where('is_available', true)
+            ->whereNotNull('type')
+            ->distinct()
+            ->orderBy('type')
+            ->pluck('type');
+
         $cars = Car::query()
+            ->where('is_available', true)
             ->search($filters)
             ->orderBy('price_per_day')
             ->paginate(12)
@@ -37,6 +54,7 @@ class CarController extends Controller
         return view('cars.index', [
             'cars' => $cars,
             'filters' => $filters,
+            'types' => $types,
         ]);
     }
 }
