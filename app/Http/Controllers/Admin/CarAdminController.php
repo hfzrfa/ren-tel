@@ -24,7 +24,7 @@ class CarAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:sedan,suv,luxury,ev,van,pickup',
+            'type' => 'required|in:sedan,suv,luxury,ev,van,pickup,mpv',
             'transmission' => 'required|in:automatic,manual',
             'seats' => 'required|integer|min:2|max:9',
             'price_per_day' => 'required|numeric|min:0',
@@ -49,7 +49,7 @@ class CarAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:sedan,suv,luxury,ev,van,pickup',
+            'type' => 'required|in:sedan,suv,luxury,ev,van,pickup,mpv',
             'transmission' => 'required|in:automatic,manual',
             'seats' => 'required|integer|min:2|max:9',
             'price_per_day' => 'required|numeric|min:0',
